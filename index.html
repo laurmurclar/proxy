@@ -1,1 +1,20 @@
 <h1>Admin Console</h1>
+<form action="" method="post">
+	Blacklist site: <br>
+	<input type="text" name="site">
+	<input type="submit" value="Submit">
+</form>
+
+<div id="console"></div>
+
+<script>
+  function updateConsole(data) {
+    document.getElementById('console').innerHTML += data + "<br>";
+  }
+
+  var host = window.document.location.host.replace(/:.*/, '');
+  var ws = new WebSocket('ws://' + host + ':8000');
+  ws.onmessage = function (event) {
+    updateConsole(event.data);
+  };
+</script>
